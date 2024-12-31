@@ -6,25 +6,30 @@ import java.sql.*;
 public class myFrame2 extends Frame implements ActionListener {
     Button b1;
     TextField f1, f2;
+    Label status;
 
     myFrame2() {
         setBackground(Color.cyan);
-        FlowLayout flow = new FlowLayout();
         Label mainLabel = new Label("***ENTER YOUR DETAILS HERE:***");
         mainLabel.setBackground(Color.orange);
         mainLabel.setBounds(550, 50, 200, 75);
 
-        Label l1 = new Label("Enter Username here");
+        Label l1 = new Label("Enter ID : ");
         l1.setBounds(475, 150, 150, 20);
 
-        f1 = new TextField("username");
+        f1 = new TextField("ID");
         f1.setBounds(675, 150, 150, 20);
 
-        Label l2 = new Label("Enter Password here");
+        Label l2 = new Label("Enter Name : ");
         l2.setBounds(475, 200, 150, 20);
 
-        f2 = new TextField("password");
+        f2 = new TextField("name");
         f2.setBounds(675, 200, 150, 20);
+
+        status = new Label("Database Status : ");
+        //  x, y,  width ,height
+        status.setBounds(520, 275, 250, 30);
+        status.setBackground(Color.yellow);
 
         b1 = new Button("Sign Up");
         b1.setBounds(475, 370, 100, 50);
@@ -38,6 +43,7 @@ public class myFrame2 extends Frame implements ActionListener {
         add(f1);
         add(l2);
         add(f2);
+        add(status);
         add(b1);
         add(b2);
 
@@ -45,28 +51,22 @@ public class myFrame2 extends Frame implements ActionListener {
         setSize(1300, 720);
         setLayout(null);
         setVisible(true);
-
         b1.addActionListener(this);
     }
 
     public void actionPerformed(ActionEvent e) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/adviseway", "root", "mahesh");
-
-            String query = "INSERT INTO test (username, password) VALUES (?, ?)";
+            String query = "INSERT INTO test (id, name) VALUES (?, ?)";
             PreparedStatement pstmt = con.prepareStatement(query);
-            pstmt.setString(1, f1.getText()); // Set username
-            pstmt.setString(2, f2.getText()); // Set password
-
-            // Execute the update
+            pstmt.setInt(1, Integer.parseInt(f1.getText())); 
+            pstmt.setString(2, f2.getText()); 
             int rowsAffected = pstmt.executeUpdate();
             if (rowsAffected > 0) {
+                status.setText("Database Status : Data inserted successfully.");
                 System.out.println("Data inserted successfully.");
             }
-
-            // Close resources
             pstmt.close();
             con.close();
         } catch (ClassNotFoundException e1) {
