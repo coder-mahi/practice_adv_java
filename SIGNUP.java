@@ -3,12 +3,12 @@ import java.applet.*;
 import java.awt.event.*;
 import java.sql.*;
 
-public class myFrame2 extends Frame implements ActionListener {
+public class SIGNUP extends Frame implements ActionListener {
     Button b1;
     TextField f1, f2;
     Label status;
 
-    myFrame2() {
+    SIGNUP() {
         setBackground(Color.cyan);
         Label mainLabel = new Label("***ENTER YOUR DETAILS HERE:***");
         mainLabel.setBackground(Color.orange);
@@ -79,6 +79,6 @@ public class myFrame2 extends Frame implements ActionListener {
     }
 
     public static void main(String args[]) {
-        myFrame2 obj = new myFrame2();
+        SIGNUP obj = new SIGNUP();
     }
 }
